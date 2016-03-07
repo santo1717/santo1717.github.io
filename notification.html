@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+ <script type="text/javascript">
+    this.name = "mainWindow";
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Web Notifications API Demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <style>
+      *
+      {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+      body
+      {
+        max-width: 500px;
+        margin: 2em auto;
+        padding: 0 0.5em;
+        font-size: 20px;
+      }
+
+      h1
+      {
+        text-align: center;
+      }
+
+      .hidden
+      {
+        display: none;
+      }
+
+      #custom-notification
+      {
+        margin-top: 1em;
+      }
+
+      label
+      {
+        display: block;
+      }
+
+      input[name="title"],
+      textarea
+      {
+        width: 100%;
+      }
+
+      input[name="title"]
+      {
+        height: 2em;
+      }
+
+      textarea
+      {
+        height: 5em;
+      }
+
+      .buttons-wrapper
+      {
+        text-align: center;
+      }
+
+      .button-demo
+      {
+        padding: 0.5em;
+        margin: 1em;
+      }
+
+      #log
+      {
+        height: 200px;
+        width: 100%;
+        overflow-y: scroll;
+        border: 1px solid #333333;
+        line-height: 1.3em;
+      }
+
+      .author
+      {
+        display: block;
+        margin-top: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Naaptol Notification API</h1>
+    <span id="wn-unsupported" class="hidden">API not supported</span>
+
+    <form id="custom-notification" action="">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" />
+
+      <label for="body">Body:</label>
+      <textarea id="body" name="body"></textarea>
+
+      <div class="buttons-wrapper">
+        <button id="button-wn-show-preset" class="button-demo">Show  Notification</button>
+        
+      </div>
+    </form>
+
+    <script>
+    
+    
+    
+    
+      if (!('Notification' in window)) 
+      {
+		document.getElementById('wn-unsupported').classList.remove('hidden');
+		document.getElementById('button-wn-show-preset').setAttribute('disabled', 'disabled');
+		document.getElementById('button-wn-show-custom').setAttribute('disabled', 'disabled');
+	  }
+      else 
+      {
+        var log = document.getElementById('log');
+        var notificationEvents = ['onclick', 'onshow', 'onerror', 'onclose'];
+        /* Service worker code start  */
+        navigator.serviceWorker.register('sw.js');
+        
+        function notifyUser(event) 
+        {     	         
+        	var title;
+            var message;
+
+            title = document.getElementById('title').value;
+            message = document.getElementById('body').value
+
+          function showNotification() {
+        	  Notification.requestPermission(function(result) {
+        	    if (result === 'granted') {
+        	      navigator.serviceWorker.ready.then(function(registration) {
+        	        registration.showNotification(title, {
+        	          body: message,
+        	          icon: "http://layout.naptol.com/usr/local/csp/staticContent/images_layout-html5/mobile/logo.png",
+        	          vibrate: [200, 100, 200, 100, 200, 100, 200],
+        	          tag: 'vibration-sample'
+        	        });
+        	      });
+        	    }
+        	  }); 
+        	}
+           showNotification(); 
+          
+          /* Service worker code end  */      
+        }
+             
+document.getElementById('button-wn-show-preset').addEventListener('click', notifyUser);
+
+      }
+      
+      $(document).ready(function () 
+  			{
+    	  Notification.requestPermission(function() 
+    			  {
+              
+             
+             });  	
+    	  }); 
+    
+    </script>
+  </body>
+</html>
