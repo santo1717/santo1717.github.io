@@ -58,10 +58,10 @@ self.addEventListener('activate', function(event) {
 		      if (client.url.indexOf("mobile-handsets") > -1 && 'focus' in client)
 		    	  found = true;
 		      client.focus();
-		     clients.openWindow("https://www.google.co.in/");		     
+		     clients.openWindow("http://m.naaptol.com/m/jeans/set-of-3-smart-fashion-denims-for-men-by-american-indigo-new/p/12494804.html?ntzoneid=9262&nts=HP_Best_Deals&ntz=HP_Best_Deals");		     
 		    }
 		    if (!found)
-		       clients.openWindow("https://www.google.co.in/");
+		       clients.openWindow("http://m.naaptol.com/m/jeans/set-of-3-smart-fashion-denims-for-men-by-american-indigo-new/p/12494804.html?ntzoneid=9262&nts=HP_Best_Deals&ntz=HP_Best_Deals");
 
 		  }));
 	 
