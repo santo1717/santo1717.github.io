@@ -148,6 +148,7 @@ document.getElementById('button-wn-show-preset').addEventListener('click', notif
       function showNotification() {
     	 
     	    if (perm === 'granted') {
+    	    	alert("start");
     	      navigator.serviceWorker.ready.then(function(registration) {
     	        registration.showNotification("Welcome to Naaptol", {
     	          body: " Looks21 Hair Loss Concealer",
@@ -157,6 +158,7 @@ document.getElementById('button-wn-show-preset').addEventListener('click', notif
     	          data: "http://m.naaptol.com/m/hair-care/looks21-hair-loss-concealer-new/p/12502906.html?ntzoneid=9262&nts=HP_Best_Deals&ntz=HP_Best_Deals"
     	        });
     	      });
+    	       alert("end");
     	    }
     	 
     	}
