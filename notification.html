@@ -107,7 +107,11 @@
 
     <script>
     
-    
+     var perm ;
+    var title;
+    var message;
+    var url;
+
     
     
       if (!('Notification' in window)) 
@@ -125,27 +129,13 @@
         
         function notifyUser(event) 
         {     	         
-        	var title;
-            var message;
-
+        	
             title = document.getElementById('title').value;
-            message = document.getElementById('body').value
+            message = document.getElementById('body').value;
+            url  = document.getElementById('url').value;
 
-          function showNotification() {
-        	  Notification.requestPermission(function(result) {
-        	    if (result === 'granted') {
-        	      navigator.serviceWorker.ready.then(function(registration) {
-        	        registration.showNotification(title, {
-        	          body: message,
-        	          icon: "http://layout.naptol.com/usr/local/csp/staticContent/images_layout-html5/mobile/logo.png",
-        	          vibrate: [200, 100, 200, 100, 200, 100, 200],
-        	          tag: 'vibration-sample'
-        	        });
-        	      });
-        	    }
-        	  }); 
-        	}
-           showNotification(); 
+          setTimeout(function() { alert("hi"); },2000);
+           
           
           /* Service worker code end  */      
         }
@@ -154,15 +144,33 @@ document.getElementById('button-wn-show-preset').addEventListener('click', notif
 
       }
       
+
+      function showNotification() {
+    	 
+    	    if (perm === 'granted') {
+    	      navigator.serviceWorker.ready.then(function(registration) {
+    	        registration.showNotification("Welcome to Naaptol", {
+    	          body: " Looks21 Hair Loss Concealer",
+    	          icon: "http://layout.naptol.com/usr/local/csp/staticContent/images_layout-html5/mobile/logo.png",
+    	          vibrate: [200, 100, 200, 100, 200, 100, 200],
+    	          tag: 'vibration-sample',
+    	          data: "http://m.naaptol.com/m/hair-care/looks21-hair-loss-concealer-new/p/12502906.html?ntzoneid=9262&nts=HP_Best_Deals&ntz=HP_Best_Deals"
+    	        });
+    	      });
+    	    }
+    	 
+    	}
+      
       $(document).ready(function () 
   			{
-    	  Notification.requestPermission(function() 
+    	  Notification.requestPermission(function(result) 
     			  {
-              
+             perm = result;
              
-             });  	
+             });  
+    	  
+    	  setTimeout(showNotification,9000);
     	  }); 
-    
     </script>
   </body>
 </html>
